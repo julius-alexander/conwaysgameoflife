@@ -15,6 +15,6 @@ x - kill all cells
 4 - load preset 4 (Middleweight Spaceship)  
 5 - load preset 5 (Heavyweight Spaceship)  
 6 - load preset 6 (LWSS gun (3-way Gosper Gun))  
-
+  
 TODO:  
 [ ] save generation to file output  
