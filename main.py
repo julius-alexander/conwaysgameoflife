@@ -22,9 +22,9 @@ from fileIO import *
 # TODO =================================================================================================================
 #  [ ] save generation to file output
 #  [x] display generation to window, rather than console
-#  [ ] better file i/o (e.g., "save as", load from file, etc.)
-#       - preset structures/patterns mapped to keys 1-6
-#       - ability to save to and load from slots 7, 8, 9
+#  [x] better file i/o (e.g., save, load from file, etc.)
+#       [x] preset structures/patterns mapped to keys 1-6
+#       [x] ability to save to and load from slots 7, 8, 9
 #  =====================================================================================================================
 
 print(f'\n\nCONWAY\'S GAME OF LIFE SIMULATOR\n\n'
@@ -37,11 +37,15 @@ print(f'\n\nCONWAY\'S GAME OF LIFE SIMULATOR\n\n'
       f'l - load state from game_state.json\n'
       f'x - kill all cells\n'
       f'1 - load preset 1 (Gosper glider gun)\n'
-      f'2 - load preset 2 (Noah\'s Ark)\n'
-      f'3 - load preset 3 (Lightweight Spaceship)\n'
-      f'4 - load preset 4 (Middleweight Spaceship)\n'
-      f'5 - load preset 5 (Heavyweight Spaceship)\n'
-      f'6 - load preset 6 (LWSS gun (3-way Gosper Gun))\n')
+      f'2 - load preset 2 (Glider reflector)\n'
+      f'3 - load preset 3 (Glider duplicator)\n'
+      f'4 - load preset 4 (Lightweight Spaceship)\n'
+      f'5 - load preset 5 (Middleweight Spaceship)\n'
+      f'6 - load preset 6 (Heavyweight Spaceship)\n'
+      f'7 - load preset 7 (LWSS gun (3-way Gosper Gun))\n'
+      f'8 - load preset 8 (SR Latch, ON, no input)\n'
+      f'9 - load preset 9 (SR Latch, ON, input OFF)\n'
+      f'0 - load preset 10 (SR Latch, OFF, input ON)\n')
 
 
 def game_update(screen, cells_state, size, with_progress=False):
@@ -146,7 +150,7 @@ def main():
 
                 # '2' key - load preset 2
                 elif event.key == pygame.K_2:
-                    cells_main = np.array(load_game_state("noahs_ark.json"))
+                    cells_main = np.array(load_game_state("reflector.json"))
                     generation = 0
                     running = False
                     game_update(screen, cells_main, 10)
@@ -156,7 +160,7 @@ def main():
 
                 # '3' key - load preset 3
                 elif event.key == pygame.K_3:
-                    cells_main = np.array(load_game_state("lwss.json"))
+                    cells_main = np.array(load_game_state("duplicator.json"))
                     generation = 0
                     running = False
                     game_update(screen, cells_main, 10)
@@ -166,7 +170,7 @@ def main():
 
                 # '4' key - load preset 4
                 elif event.key == pygame.K_4:
-                    cells_main = np.array(load_game_state("mwss.json"))
+                    cells_main = np.array(load_game_state("lwss.json"))
                     generation = 0
                     running = False
                     game_update(screen, cells_main, 10)
@@ -176,7 +180,7 @@ def main():
 
                 # '5' key - load preset 5
                 elif event.key == pygame.K_5:
-                    cells_main = np.array(load_game_state("hwss.json"))
+                    cells_main = np.array(load_game_state("mwss.json"))
                     generation = 0
                     running = False
                     game_update(screen, cells_main, 10)
@@ -186,11 +190,54 @@ def main():
 
                 # '6' key - load preset 6
                 elif event.key == pygame.K_6:
+                    cells_main = np.array(load_game_state("hwss.json"))
+                    generation = 0
+                    running = False
+                    game_update(screen, cells_main, 10)
+                    screen.blit(display_generations(generation)[0], display_generations(generation)[1])
+                    pygame.display.update()
+                    print('Loaded from file')
+
+                # '7' key - load preset 7
+                elif event.key == pygame.K_7:
                     cells_main = np.array(load_game_state("lwss_gun.json"))
                     generation = 0
                     running = False
                     game_update(screen, cells_main, 10)
                     screen.blit(display_generations(generation)[0], display_generations(generation)[1])
+                    pygame.display.update()
+                    print('Loaded from file')
+
+                # '8' key - load preset 8
+                elif event.key == pygame.K_8:
+                    cells_main = np.array(load_game_state("sr_latch_ON_input_none.json"))
+                    generation = 0
+                    running = False
+                    game_update(screen, cells_main, 10)
+                    screen.blit(display_generations(generation)[0],
+                                display_generations(generation)[1])
+                    pygame.display.update()
+                    print('Loaded from file')
+
+                # '9' key - load preset 9 (SR latch ON with off input)
+                elif event.key == pygame.K_9:
+                    cells_main = np.array(load_game_state("sr_latch_ON_input_off.json"))
+                    generation = 0
+                    running = False
+                    game_update(screen, cells_main, 10)
+                    screen.blit(display_generations(generation)[0],
+                                display_generations(generation)[1])
+                    pygame.display.update()
+                    print('Loaded from file')
+
+                # '0' key - load preset 10 (SR latch OFF with on input)
+                elif event.key == pygame.K_0:
+                    cells_main = np.array(load_game_state("sr_latch_OFF_input_on.json"))
+                    generation = 0
+                    running = False
+                    game_update(screen, cells_main, 10)
+                    screen.blit(display_generations(generation)[0],
+                                display_generations(generation)[1])
                     pygame.display.update()
                     print('Loaded from file')
 
